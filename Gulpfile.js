@@ -1,8 +1,8 @@
 // 获取 gulp
-var gulp = require('gulp')
+var gulp = require('gulp');
 
 // 编译sass模块
-var sass = require('gulp-ruby-sass')
+var sass = require('gulp-sass');
 
 // 监控文件变化模块
 var watch = require('gulp-watch');
@@ -42,12 +42,10 @@ var Second = tempDate.getSeconds();
 var dateString = Year + '-' + Month + '-' + day + ' ' + Hours + ':' + Minute + ':' + Second;
 
 // 编译sass
-gulp.task('sass', function() {
-  return sass(['src/sass/*.scss','src/sass/*.sass'],{
-    sourcemap: false,
-    trace: false
-  }) 
-  .pipe(gulp.dest('dest/css'))
+gulp.task('sass', function () {
+  return gulp.src(['src/sass/*.scss','src/sass/*.sass'])
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('dest/css'));
 });
 
 // 合并压缩所有css文件
